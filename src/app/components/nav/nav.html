@@ -1,0 +1,75 @@
+<nav class="w-full bg-gray-900 shadow-lg py-4">
+
+  <div class="flex justify-center items-center gap-6">
+
+    @for (language of languages; track language.id) {
+
+      <div class="relative">
+
+        <!-- Dropdown Button -->
+        <button
+          (click)="toggleDropdown(language.id)"
+          class="flex items-center gap-2 px-5 py-2
+                 rounded-lg bg-gray-800 text-white
+                 hover:bg-gray-700 transition duration-200
+                 focus:outline-none focus:ring-2 focus:ring-blue-500">
+
+          {{ language.title }}
+
+          <!-- Chevron Icon -->
+          <svg
+            class="w-4 h-4 transition-transform duration-200"
+            [class.rotate-180]="activeDropdown() === language.id"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="2"
+            stroke="currentColor">
+
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+
+          </svg>
+
+        </button>
+
+        <!-- Dropdown List -->
+        @if (activeDropdown() === language.id) {
+
+          <ul
+            class="absolute top-full left-0 mt-2 w-48
+                   bg-white rounded-lg shadow-xl
+                   overflow-hidden z-50 border border-gray-100">
+
+            @for (item of language.items; track item.path) {
+
+              <li>
+
+                <a
+                  [routerLink]="item.path"
+                  (click)="closeDropdown()"
+                  class="block px-4 py-3 text-gray-700
+                         cursor-pointer hover:bg-gray-100
+                         hover:text-blue-600 transition duration-200">
+
+                  {{ item.title }}
+
+                </a>
+
+              </li>
+
+            }
+
+          </ul>
+
+        }
+
+      </div>
+
+    }
+
+  </div>
+
+</nav>
