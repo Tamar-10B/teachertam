@@ -1,98 +1,63 @@
 import { Routes } from '@angular/router';
 
 import { Welcome } from './components/welcome/welcome';
+import { Kurikulumebi } from './components/kurikulumebi/kurikulumebi';
 import { Page } from './components/page/page';
 
 export const routes: Routes = [
 
-  // Welcome Page
+  // მთავარი გვერდი
   {
     path: '',
     component: Welcome
   },
 
-  // English
+  // ინგლისური კურიკულუმები
   {
     path: 'english/curriculums',
-    component: Page,
-    data: { title: 'ინგლისური - კურიკულუმები' }
-  },
-  {
-    path: 'english/rubrics',
-    component: Page,
-    data: { title: 'ინგლისური - რუბრიკები' }
-  },
-  {
-    path: 'english/integrated',
-    component: Page,
-    data: { title: 'ინგლისური - ინტეგრირებული' }
-  },
-  {
-    path: 'english/creative',
-    component: Page,
-    data: { title: 'ინგლისური - შემოქმედებითი' }
-  },
-  {
-    path: 'english/plans',
-    component: Page,
-    data: { title: 'ინგლისური - გეგმები' }
+    component: Kurikulumebi,
+    data: { subjectId: 'english' }
   },
 
-  // German
+  // გერმანული კურიკულუმები
   {
     path: 'german/curriculums',
-    component: Page,
-    data: { title: 'გერმანული - კურიკულუმები' }
-  },
-  {
-    path: 'german/rubrics',
-    component: Page,
-    data: { title: 'გერმანული - რუბრიკები' }
-  },
-  {
-    path: 'german/integrated',
-    component: Page,
-    data: { title: 'გერმანული - ინტეგრირებული' }
-  },
-  {
-    path: 'german/creative',
-    component: Page,
-    data: { title: 'გერმანული - შემოქმედებითი' }
-  },
-  {
-    path: 'german/plans',
-    component: Page,
-    data: { title: 'გერმანული - გეგმები' }
+    component: Kurikulumebi,
+    data: { subjectId: 'german' }
   },
 
-  // Russian
+  // რუსული კურიკულუმები
   {
     path: 'russian/curriculums',
-    component: Page,
-    data: { title: 'რუსული - კურიკულუმები' }
-  },
-  {
-    path: 'russian/rubrics',
-    component: Page,
-    data: { title: 'რუსული - რუბრიკები' }
-  },
-  {
-    path: 'russian/integrated',
-    component: Page,
-    data: { title: 'რუსული - ინტეგრირებული' }
-  },
-  {
-    path: 'russian/creative',
-    component: Page,
-    data: { title: 'რუსული - შემოქმედებითი' }
-  },
-  {
-    path: 'russian/plans',
-    component: Page,
-    data: { title: 'რუსული - გეგმები' }
+    component: Kurikulumebi,
+    data: { subjectId: 'russian' }
   },
 
-  // Unknown routes
+  // რუბრიკები
+  {
+    path: ':subject/rubrics',
+    component: Page
+  },
+
+  // ინტეგრირებული
+  {
+    path: ':subject/integrated',
+    component: Page
+  },
+
+  // შემოქმედებითი
+  {
+    path: ':subject/creative',
+    component: Page
+  },
+
+  // გეგმები
+  {
+    path: ':subject/plans',
+    component: Page
+  },
+
+  // უცნობი მისამართი
   {
     path: '**',
     redirectTo: ''

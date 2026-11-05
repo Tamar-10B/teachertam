@@ -1,0 +1,233 @@
+<section class="min-h-screen bg-gray-50 py-12 px-4 sm:px-6">
+
+  <div class="max-w-6xl mx-auto">
+
+    @if (currentSubject(); as subject) {
+
+      <!-- Header -->
+      <div class="text-center mb-12">
+
+        <div class="inline-flex items-center justify-center
+                    w-16 h-16 bg-blue-100 rounded-2xl mb-5">
+
+          <svg
+            class="w-9 h-9 text-blue-600"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24">
+
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="1.8"
+              d="M12 14l9-5-9-5-9 5 9 5z" />
+
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="1.8"
+              d="M12 14v7" />
+
+          </svg>
+
+        </div>
+
+        <h1 class="text-3xl md:text-4xl font-bold
+                   text-gray-900 mb-4">
+
+          {{ subject.name }}
+
+        </h1>
+
+        <p class="text-gray-500 text-lg">
+          აირჩიეთ კლასი და გაეცანით შესაბამის კურიკულუმს
+        </p>
+
+      </div>
+
+      <!-- Classes -->
+      <div class="grid grid-cols-2 sm:grid-cols-3
+                  md:grid-cols-4 gap-5">
+
+        @for (classItem of subject.classes; track classItem.id) {
+
+          <button
+            (click)="selectClass(classItem.id)"
+            class="bg-white p-6 rounded-xl border
+                   border-gray-200 shadow-sm
+                   hover:shadow-lg hover:border-blue-400
+                   transition-all duration-200"
+
+            [class.border-blue-500]="selectedClass() === classItem.id"
+            [class.bg-blue-50]="selectedClass() === classItem.id">
+
+            <div class="flex flex-col items-center gap-3">
+
+              <svg
+                class="w-9 h-9 text-blue-600"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24">
+
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M12 14l9-5-9-5-9 5 9 5z" />
+
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M12 14v7" />
+
+              </svg>
+
+              <span class="font-semibold text-gray-800">
+                {{ classItem.name }}
+              </span>
+
+              <span class="text-xs text-gray-400">
+                კურიკულუმის ნახვა
+              </span>
+
+            </div>
+
+          </button>
+
+        }
+
+      </div>
+
+      <!-- Selected Class -->
+      @if (currentCurriculum(); as curriculum) {
+
+        <div class="mt-10 bg-white rounded-2xl
+                    shadow-md border border-gray-100
+                    p-6 md:p-8">
+
+          <div class="flex flex-col sm:flex-row
+                      justify-between items-start
+                      sm:items-center gap-4">
+
+            <div>
+
+              <span class="text-sm text-blue-600 font-semibold">
+                {{ subject.name }}
+              </span>
+
+              <h2 class="text-2xl font-bold text-gray-900 mt-2">
+                {{ curriculum.name }} — კურიკულუმი
+              </h2>
+
+              <p class="text-gray-500 mt-2">
+                სასწავლო პროგრამა და შესაბამისი მასალები
+              </p>
+
+            </div>
+
+            @if (curriculum.pdf) {
+
+              <div class="flex flex-wrap gap-3">
+
+                <!-- PDF Open -->
+                <a
+                  [href]="curriculum.pdf"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="inline-flex items-center gap-2
+                         bg-blue-600 text-white px-5 py-3
+                         rounded-lg hover:bg-blue-700 transition">
+
+                  <svg
+                    class="w-5 h-5"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24">
+
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M15 10l4.553-2.276
+                         A1 1 0 0121 8.618v6.764
+                         a1 1 0 01-1.447.894L15 14
+                         M5 18h8a2 2 0 002-2V8
+                         a2 2 0 00-2-2H5a2 2
+                         0 00-2 2v8a2 2
+                         0 002 2z" />
+
+                  </svg>
+
+                  PDF-ის გახსნა
+
+                </a>
+
+                <!-- Download -->
+                <a
+                  [href]="curriculum.pdf"
+                  [download]="subject.id + '-class-' + curriculum.id + '.pdf'"
+                  class="inline-flex items-center gap-2
+                         bg-gray-100 text-gray-700 px-5 py-3
+                         rounded-lg hover:bg-gray-200 transition">
+
+                  <svg
+                    class="w-5 h-5"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24">
+
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M4 16v1a3 3 0 003 3h10a3 3
+                         0 003-3v-1 M7 10l5 5 5-5
+                         M12 15V3" />
+
+                  </svg>
+
+                  ჩამოტვირთვა
+
+                </a>
+
+              </div>
+
+            } @else {
+
+              <div class="bg-amber-50 border border-amber-200
+                          rounded-lg p-4">
+
+                <p class="text-amber-700 text-sm font-medium">
+                  კურიკულუმი ჯერ არ არის დამატებული.
+                </p>
+
+              </div>
+
+            }
+
+          </div>
+
+        </div>
+
+      }
+
+    } @else {
+
+      <div class="text-center py-20">
+
+        <h2 class="text-2xl font-bold text-gray-800">
+          საგანი ვერ მოიძებნა
+        </h2>
+
+        <p class="text-gray-500 mt-3">
+          გთხოვთ, შეამოწმოთ გვერდის მისამართი.
+        </p>
+
+      </div>
+
+    }
+
+  </div>
+
+</section>
